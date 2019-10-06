@@ -4,7 +4,7 @@ colorlog
 asyncio
 cffi
 pynacl
-aiohttp
+aiohttp<3.6.0,>=3.3.0
 python-nmap
 random-cat
 pythonwhois

@@ -1,0 +1,23 @@
+{
+    "name": "zeobot",
+    "description": "A discord bot based on heroku deployment",
+    "image": "heroku/python",
+    "repository": "https://github.com/heroku/heroku-buildpack-python.git",
+    "keywords": [
+        "python",
+        "django"
+    ],
+    "env": {
+        "token": {
+            "description": "The secret key for the worker application.",
+            "value": "MzIyMTY0NDc5ODE3Mjg1NjQz.XZFsLA.SEMI2M-40Y6X-KtBqzGWZbWJKeg"
+        }
+    },
+    "environments": {
+        "dev": {
+            "scripts": {
+                "dev": "bash run.sh"
+            }
+        }
+    }
+}

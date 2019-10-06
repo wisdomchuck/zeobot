@@ -1,3 +1,8 @@
 {
-    "python.pythonPath": "venv/bin/python"
+    "python.pythonPath": "/home/wisdomchuck/.local/share/virtualenvs/zeobot-qqSam6xA/bin/python",
+    "python.linting.enabled": true,
+    "python.autoComplete.extraPaths": [
+        "${env:SPARK_HOME}/python",
+        "${env:SPARK_HOME}/python/pyspark"
+    ]
 }
