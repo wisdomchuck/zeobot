@@ -10,7 +10,7 @@
     "env": {
         "token": {
             "description": "The secret key for the worker application.",
-            "value": "MzIyMTY0NDc5ODE3Mjg1NjQz.XZn5_A.5L2FsO9pmXdJWI0owy1hFSHTqrQ"
+            "value": "${token}"
         }
     },
     "environments": {
