@@ -1,7 +1,0 @@
-build-essential
-libc6
-default-dbus-session-bus
-unzip
-software-properties-common
-libffi-dev
-libsodium-dev
