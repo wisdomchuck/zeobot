@@ -28,7 +28,7 @@ from utils.mysql import *
 from utils.buildinfo import *
 
 config = Config()
-log.setupRotator(config.log_dateformat, config.log_timeformat)
+log.setupRotator(config.log_date_format, config.log_time_format)
 if config.debug:
     log.enableDebugging() # pls no flame
 bot = commands.Bot(command_prefix=config.command_prefix, description="A multi-purpose Ruby Rose from RWBY themed discord bot", pm_help=True)
