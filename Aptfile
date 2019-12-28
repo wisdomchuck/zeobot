@@ -3,9 +3,5 @@ libc6
 default-dbus-session-bus
 unzip
 software-properties-common
-ffmpeg
-libvpx5
-libpulse0
 libffi-dev
 libsodium-dev
-libffi6 --reinstall
