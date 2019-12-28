@@ -8,3 +8,4 @@ libvpx5
 libpulse0
 libffi-dev
 libsodium-dev
+libffi6 --reinstall
