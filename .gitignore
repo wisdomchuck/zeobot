@@ -7,7 +7,7 @@
 __pycache__/
 
 # Bot files
-data/
+data/Ruby.db
 logs/
 config/config.ini
 

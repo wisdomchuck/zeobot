@@ -1,8 +1,9 @@
 {
-    "python.pythonPath": "/home/wisdomchuck/.local/share/virtualenvs/zeobot-qqSam6xA/bin/python",
+    "python.pythonPath": "D:\\Python36\\python.exe",
     "python.linting.enabled": true,
     "python.autoComplete.extraPaths": [
         "${env:SPARK_HOME}/python",
         "${env:SPARK_HOME}/python/pyspark"
-    ]
+    ],
+    "python.linting.pylintEnabled": true
 }
