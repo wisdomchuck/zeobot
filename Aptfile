@@ -1,12 +1,9 @@
 build-essential
-dbus
+default-dbus-session-bus
 unzip
 software-properties-common
-libopus-dev
 ffmpeg
-libvpx-dev
 libvpx5
-pulseaudio
 libpulse0
 libffi-dev
 libsodium-dev
