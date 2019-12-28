@@ -31,8 +31,16 @@ Command_Prefix = *
 ; Do NOT put the owner ID here!
 ;Developer_IDs =
 
+; Example: ID1 ID2 ID3
+; Be sure to uncomment if you are entering a developer ID!
+; Do NOT put the owner ID or any dev IDs here!
+;Support_IDs =
+
 ; How many results should the NSFW commands get?
 Max_NSFW_Count = 500
+
+; How many votes is needed to perform a song skip
+Skips_Votes_Needed = 3
 
 [Status]
 ; Should users be able to edit the bot's status with the stream and changestatus command?
@@ -83,3 +91,19 @@ enable = no
 ; If you enable the osu! api function, you MUST have an api key.
 ; If you don't have an api key, you can get one at https://osu.ppy.sh/p/api
 ;key =
+
+[Steam]
+; Should steam features be enabled?
+enable = no
+
+; Steam web api key. You can get one at http://steamcommunity.com/dev/apikey
+;key =
+
+[Twitch]
+; Your twitch app ID
+;client_id =
+
+[Google]
+; Google API key
+; In order to create an api key, do this, go to https://console.developers.google.com/apis/credentials and under "create credentials" select "API key"
+;api_key =

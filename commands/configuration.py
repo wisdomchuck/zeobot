@@ -2,116 +2,103 @@ from discord.ext import commands
 from utils.mysql import *
 from utils.tools import *
 from utils import checks
+from utils.language import Language
 
-class Configuration():
+class Configuration(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @checks.is_server_owner()
-    @commands.command(pass_context=True)
+    @checks.is_guild_owner()
+    @commands.guild_only()
+    @commands.command()
     async def config(self, ctx, type:str, *, value:str):
         """Modifies the server's local config"""
-        await self.bot.send_typing(ctx.message.channel)
-        if type == "mod-role" or type == "mute-role" or type == "enable-ranking":
-            if type == "ranking":
-                try:
-                    global bool
-                    bool = convert_to_bool(value)
-                    update_data_entry(ctx.message.server.id, "ranking", bool)
-                except ValueError:
-                    await self.bot.say("`{}` is not a valid bool!".format(value))
-                    return
-            else:
-                update_data_entry(ctx.message.server.id, type, value)
-            if type == "enable-ranking":
-                if bool:
-                    action = "enabled"
-                else:
-                    action = "disabled"
-                await self.bot.say("Successfully {} the ranking system".format(action))
-            else:
-                await self.bot.say("Successfully set the {} to `{}`".format(type, value))
+        await ctx.channel.trigger_typing()
+        if type == "mod-role" or type == "mute-role":
+            update_data_entry(ctx.guild.id, type, value)
+            await ctx.send(Language.get("configuration.set_success", ctx).format(type, value))
         else:
-            await self.bot.say("`{}` is not a valid type! Valid types are `mod-role`, `mute-role`, and `enable-ranking`".format(type))
+            await ctx.send(Language.get("configuration.invalid_set_type", ctx).format(type))
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def showconfig(self, ctx):
         """Shows the server's configuration"""
-        await self.bot.send_typing(ctx.message.channel)
-        mod_role_name = read_data_entry(ctx.message.server.id, "mod-role")
-        mute_role_name = read_data_entry(ctx.message.server.id, "mute-role")
-        ranking_enabled = read_data_entry(ctx.message.server.id, "enable-ranking")
-        fields = {"Mod Role":mod_role_name, "Mute Role":mute_role_name, "Ranking":ranking_enabled}
+        await ctx.channel.trigger_typing()
+        mod_role_name = read_data_entry(ctx.guild.id, "mod-role")
+        mute_role_name = read_data_entry(ctx.guild.id, "mute-role")
+        fields = {Language.get("configuration.mod_role", ctx):mod_role_name, Language.get("configuration.mute_role", ctx):mute_role_name}
         embed = make_list_embed(fields)
-        embed.title = "Server Configuration"
+        embed.title = Language.get("configuration.server_configuration", ctx)
         embed.color = 0xFF0000
-        await self.bot.say(embed=embed)
+        await ctx.send(embed=embed)
 
-    @checks.is_server_owner()
-    @commands.command(pass_context=True)
+    @checks.is_guild_owner()
+    @commands.guild_only()
+    @commands.command()
     async def joinleave(self, ctx, type:str, *, value:str):
         """Configures on user join and leave settings"""
-        await self.bot.send_typing(ctx.message.channel)
+        await ctx.channel.trigger_typing()
         if type == "join-message":
-            update_data_entry(ctx.message.server.id, type, value)
-            await self.bot.say("Successfully set the join message to: {}".format(value.replace("!USER!", "@{}".format(ctx.message.author.name)).replace("!SERVER!", ctx.message.server.name)))
+            update_data_entry(ctx.guild.id, type, value)
+            await ctx.send(Language.get("configuration.join_message_set_success", ctx).format(value.replace("%user%", "@{}".format(ctx.author.name)).replace("%server%", ctx.guild.name)))
         elif type == "leave-message":
-            update_data_entry(ctx.message.server.id, type, value)
-            await self.bot.say("Successfully set the leave message to: {}".format(value.replace("!USER!", "@{}".format(ctx.message.author.name)).replace("!SERVER!", ctx.message.server.name)))
+            update_data_entry(ctx.guild.id, type, value)
+            await ctx.send(Language.get("configuration.leave_message_set_success", ctx).format(value.replace("%user%", "@{}".format(ctx.author.name)).replace("%server%", ctx.guild.name)))
         elif type == "channel":
             if value == "remove":
-                update_data_entry(ctx.message.server.id, "join-leave-channel", None)
-                await self.bot.say("Successfully disabled join-leave messages")
+                update_data_entry(ctx.guild.id, "join-leave-channel", None)
+                await ctx.send(Language.get("configuration.join-leave_disabled", ctx))
                 return
-            channel = discord.utils.get(ctx.message.server.channels, name=value)
+            channel = discord.utils.get(ctx.guild.channels, name=value)
             if channel is None:
-                await self.bot.say("There is no channel on this server named `{}`".format(value))
+                await ctx.send(Language.get("configuration.channel_not_found", ctx).format(value))
                 return
-            update_data_entry(ctx.message.server.id, "join-leave-channel", channel.id)
-            await self.bot.say("Successfully set the join-leave-channel to: {}".format(channel.mention))
+            update_data_entry(ctx.guild.id, "join-leave-channel", channel.id)
+            await ctx.send(Language.get("configuration.join-leave_channel_set_success", ctx).format(channel.mention))
         elif type == "join-role":
             if value == "remove":
-                update_data_entry(ctx.message.server.id, type, None)
-                await self.bot.say("Successfully disabled the join-role")
+                update_data_entry(ctx.guild.id, type, None)
+                await ctx.send(Language.get("configuration.join-leave_role_disabled", ctx))
                 return
-            role = discord.utils.get(ctx.message.server.roles, name=value)
+            role = discord.utils.get(ctx.guild.roles, name=value)
             if role is None:
-                await self.bot.say("There is no role on this server named `{}`".format(value))
+                await ctx.send(Language.get("configuration.role_not_found", ctx).format(value))
                 return
-            update_data_entry(ctx.message.server.id, type, role.id)
-            await self.bot.say("Successfully set the join-role to: {}".format(role.name))
+            update_data_entry(ctx.guild.id, type, role.id)
+            await ctx.send(Language.get("configuration.join-role_set_success", ctx).format(role.name))
         else:
-            await self.bot.say("`{}` is not a valid type! Valid types are `join-message`, `leave-message`, `channel`, and `mute-role`".format(type))
+            await ctx.send(Language.get("configuration.join_settings_invalid_type", ctx).format(type))
 
-    @commands.command(pass_context=True)
+    @commands.guild_only()
+    @commands.command()
     async def showjoinleaveconfig(self, ctx):
         """Shows the on user join and leave config"""
-        join_message = read_data_entry(ctx.message.server.id, "join-message")
+        await ctx.channel.trigger_typing()
+        join_message = read_data_entry(ctx.guild.id, "join-message")
         if join_message is not None:
-            join_message = join_message.replace("!USER!", "@{}".format(ctx.message.author.name)).replace("!SERVER!", ctx.message.server.name)
-        leave_message = read_data_entry(ctx.message.server.id, "leave-message")
+            join_message = join_message.replace("%user%", "@{}".format(ctx.author.name)).replace("%server%", ctx.guild.name)
+        leave_message = read_data_entry(ctx.guild.id, "leave-message")
         if leave_message is not None:
-            leave_message = leave_message.replace("!USER!", "@{}".format(ctx.message.author.name)).replace("!SERVER!", ctx.message.server.name)
-        join_leave_channel_id = read_data_entry(ctx.message.server.id, "join-leave-channel")
+            leave_message = leave_message.replace("%user%", "@{}".format(ctx.author.name)).replace("%server%", ctx.guild.name)
+        join_leave_channel_id = read_data_entry(ctx.guild.id, "join-leave-channel")
         if join_leave_channel_id is not None:
-            join_leave_channel = discord.utils.get(ctx.message.server.channels, id=join_leave_channel_id).mention
+            join_leave_channel = discord.utils.get(ctx.guild.channels, id=join_leave_channel_id).mention
             if join_leave_channel is None:
-                update_data_entry(ctx.message.server.id, "join-leave-channel", None)
+                update_data_entry(ctx.guild.id, "join-leave-channel", None)
         else:
             join_leave_channel = None
-        join_role_id = read_data_entry(ctx.message.server.id, "join-role")
+        join_role_id = read_data_entry(ctx.guild.id, "join-role")
         if join_role_id is not None:
-            join_role = discord.utils.get(ctx.message.server.roles, id=join_role_id).name
+            join_role = discord.utils.get(ctx.guild.roles, id=join_role_id).name
             if join_role is None:
-                update_data_entry(ctx.message.server.id, "join-role", None)
+                update_data_entry(ctx.guild.id, "join-role", None)
         else:
             join_role = None
-        fields = {"Join Message":join_message, "Leave Message":leave_message, "Channel":join_leave_channel, "Join Role":join_role}
+        fields = {Language.get("configuration.join_message", ctx):join_message, Language.get("configuration.leave_message", ctx):leave_message, Language.get("configuration.channel", ctx):join_leave_channel, Language.get("configuration.join_role", ctx):join_role}
         embed = make_list_embed(fields)
-        embed.title = "Configuration for join and leave events"
+        embed.title = Language.get("configuration.showjoinleaveconfig_title", ctx)
         embed.color = 0xFF0000
-        await self.bot.say(embed=embed)
-
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Configuration(bot))

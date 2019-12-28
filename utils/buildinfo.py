@@ -1,4 +1,5 @@
-BUILD_VERSION = "13.0.4"
-BUILD_AUTHORS = "Modified by WisdomChuck#7806, orginally by Seth#0051 and based robin#0052"
-BUILD_CODENAME = "Wish we could turn back time... to the good old days"
-BUILD_DATE = "July 24th, 2017 at 8:51 PM EDT -4:00"
+BUILD_VERSION = "15.2"
+BUILD_AUTHORS = "ZeroEpoch1969#0051 and based robin#0052"
+BUILD_CODENAME = ":yeepensive:"
+BUILD_DATE = "April 14th, 2019 at 6:48 PM GMT -7:00"
+TRANSLATORS = {"based robin#0052":"Spanish", "BibleRule#9942":"Hebrew", "Timanttikuutio#1964":"Finnish", "Ele_#0400":"Spanish", "Naratna#1674":"French"}
