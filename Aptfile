@@ -1,8 +1,8 @@
-build-essential -y
-unzip -y
-software-properties-common -y
-libopus-dev -y
-ffmpeg -y
-libvpx-dev -y
-libffi-dev -y
-libsodium-dev -y
+build-essential
+unzip
+software-properties-common
+libopus-dev
+ffmpeg
+libvpx-dev
+libffi-dev
+libsodium-dev
