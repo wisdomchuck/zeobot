@@ -3,5 +3,6 @@ unzip -y
 software-properties-common -y
 libopus-dev -y
 ffmpeg -y
+libvpx-dev -y
 libffi-dev -y
 libsodium-dev -y
