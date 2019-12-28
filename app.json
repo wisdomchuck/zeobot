@@ -1,8 +1,8 @@
 {
     "name": "zeobot",
     "description": "A discord bot based on heroku deployment",
-    "image": "heroku/python",
-    "repository": "https://github.com/heroku/heroku-buildpack-python.git",
+    "image": "heroku/apt",
+    "repository": "https://github.com/heroku/heroku-buildpack-apt",
     "keywords": [
         "python",
         "django"
