@@ -1,0 +1,31 @@
+[project]
+name = "zeobot"
+authors = [{name = "Dwayne Carter", email = "wisdom@shalemore.com"}]
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "discord.py[voice]",
+    "youtube-dl",
+    "colorlog",
+    "asyncio",
+    "cffi",
+    "pynacl",
+    "aiohttp",
+    "python-nmap",
+    "random-cat",
+    "pythonwhois",
+    "pillow",
+    "requests",
+    "steam",
+    "lxml",
+    "cowpy",
+    "fortune",
+    "opuslib",
+    "python-twitch-client",
+    "google-api-python-client"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest"
+]
