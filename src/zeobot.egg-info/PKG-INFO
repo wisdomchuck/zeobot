@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: zeobot
+Version: 0.1.0
+Author-email: Dwayne Carter <wisdom@shalemore.com>
+Requires-Python: >=3
+License-File: LICENSE
+Requires-Dist: discord.py[voice]
+Requires-Dist: youtube-dl
+Requires-Dist: colorlog
+Requires-Dist: asyncio
+Requires-Dist: cffi
+Requires-Dist: pynacl
+Requires-Dist: aiohttp
+Requires-Dist: python-nmap
+Requires-Dist: random-cat
+Requires-Dist: pythonwhois
+Requires-Dist: pillow
+Requires-Dist: requests
+Requires-Dist: steam
+Requires-Dist: lxml
+Requires-Dist: cowpy
+Requires-Dist: fortune
+Requires-Dist: opuslib
+Requires-Dist: python-twitch-client
+Requires-Dist: google-api-python-client

@@ -1,8 +1,12 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "zeobot"
 authors = [{name = "Dwayne Carter", email = "wisdom@shalemore.com"}]
 version = "0.1.0"
-requires-python = ">=3.11"
+requires-python = ">=3"
 dependencies = [
     "discord.py[voice]",
     "youtube-dl",
@@ -25,7 +29,5 @@ dependencies = [
     "google-api-python-client"
 ]
 
-[project.optional-dependencies]
-dev = [
-    "pytest"
-]
+[tool.setuptools]
+package-dir = {"" = "src"}
